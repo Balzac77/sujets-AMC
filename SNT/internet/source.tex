@@ -1,0 +1,175 @@
+%%AMC:preprocess_command=prePythonTex4AMC
+%%AMC:jobspecific=1
+%%AMC:latex_engine=pdflatex --shell-escape
+
+% Compilation Texmaker : Utilisateur/Commandes utilisateur
+%--------------------------
+% Shell Python :
+% pdflatex --shell-escape -synctex=1 -interaction=nonstopmode %.tex|
+% python /usr/share/texlive/texmf-dist/scripts/pythontex/pythontex.py %.tex|
+% pdflatex --shell-escape -synctex=1 -interaction=nonstopmode %.tex|
+%------------------------
+% Copier-coller la ligne ci-dessous dans Utilisateur/Commandes Utilisateur/Editer Commandes Utilisateur
+%------------------------
+% pdflatex --shell-escape -synctex=1 -interaction=nonstopmode %.tex | python /usr/share/texlive/texmf-dist/scripts/pythontex/pythontex.py %.tex | pdflatex --shell-escape -synctex=1 -interaction=nonstopmode %.tex
+%--------------------------
+
+\documentclass[a4paper]{article}
+\RequirePackage{etex}
+\usepackage[utf8]{inputenc}    
+\usepackage[T1]{fontenc}
+
+\usepackage[francais,bloc,completemulti]{automultiplechoice}    
+\usepackage{fancyhdr,amssymb,amsmath}
+
+% ---------- Utilisation de codes Python -----
+\usepackage{pythontex}
+\usepackage{csvsimple}
+%----------------------------------------------
+\def\barQ{b=1,m=-0.1}
+\def\barN{b=0.5,m=-0.125}
+\def\barP{b=1,m=0}
+
+
+
+\element{qqs}{
+\begin{question}{DNS}\bareme{\barQ}
+Le protocol DNS sert à ...
+			\begin{reponses}
+				\mauvaise{... attribuer une adresse IP à un ordinateur sur un réseau.}
+				\mauvaise{... identifier l'adresse MAC du routeur.} 				
+ 				\mauvaise{... établir une connexion lorsque deux ordinateurs veulent communiquer.}
+ 				\bonne{... transformer un nom en adresse IP.}
+				\mauvaise{... aiguiller les paquets vers leurs destinations.}
+			\end{reponses}
+
+\end{question}
+}
+
+\element{qqs}{
+\begin{questionmult}{TCP}\bareme{formula=NBC*1-(0.2*NMC),p=0,MAX=2}
+TCP ...
+			\begin{reponses}
+				\bonne{... utilise un port source et destination pour communiquer.}
+				\mauvaise{... n'est pas un protocole fiable.}
+ 				\mauvaise{... est particulièrement adapté pour les applications de voix sur IP.}
+ 				\bonne{... découpe les données en paquets.}
+				\bonne{... établit une connexion en 3 étapes.}
+			\end{reponses}
+\end{questionmult}
+}
+
+\element{qqs}{
+\begin{question}{TCP_nom}\bareme{\barN}
+TCP signifie ...
+\begin{reponses}
+				\mauvaise{... Transfert Control Protocol}		
+ 				\mauvaise{... Transfert Control Packet}
+				\mauvaise{... Transfert Configuration Protocol}
+				\mauvaise{... Transfert Configuration Packet}
+				\mauvaise{... Transmission Configuration Packet} 
+ 				\bonne   {... Transmission Control Protocol}
+			\end{reponses}
+\end{question}
+}	
+
+\element{qqs}{
+\begin{question}{URL}\bareme{\barQ}
+Que contient une URL ?
+			\begin{reponses}
+				\bonne{Un moyen pour indiquer sur quelle machine se trouve une page Web.}
+				\mauvaise{L'adresse IP du client.}
+ 				\mauvaise{Le nom de domaine auquel appartient une page Web.}
+ 				\mauvaise{Le nom d'utilisateur de la boîte mail.}
+			\end{reponses}
+\end{question}
+}
+
+\element{qqs}{
+\begin{question}{IP_nom}\bareme{\barN}
+IP signifie ...
+			\begin{reponses}
+				\mauvaise{... Identifiant Personal}
+				\mauvaise{... Identifiant Professional} 				
+ 				\mauvaise{... Internet Packet}
+				\mauvaise{... Internet Privacy}
+				\mauvaise{... Identifiant Packet}
+ 				\bonne   {... Internet Protocol}
+			\end{reponses}
+\end{question}
+}	
+
+\element{qqs}{
+\begin{question}{IP}\bareme{\barQ}
+Dans le modèle OSI, le protocole IP ...
+			\begin{reponses}
+				\mauvaise{... se trouve en-dessous d'Ethernet}
+				\mauvaise{... se trouve au même niveau que HTTP} 				
+ 				\mauvaise{... se trouve au-dessus de la couche Réseau}
+ 				\bonne{... se trouve en-dessous de TCP}
+			\end{reponses}
+\end{question}
+}
+
+\element{qqs}{
+\begin{question}{DHCP_nom}\bareme{\barN}
+DHCP signifie ...
+			\begin{reponses}
+				\bonne{... Dynamic Host Configuration Protocol}
+				\mauvaise{... Dynamic Host Control Packet}
+				\mauvaise{... Data Host Configuration Protocol} 				
+ 				\mauvaise{... Data Host Control Packet}
+			\end{reponses}
+\end{question}
+}
+
+\element{qqs}{
+\begin{question}{DHCP}\bareme{\barQ}
+Le protocol DHCP sert à ...
+			\begin{reponses}
+				\bonne{... attribuer une adresse IP à un ordinateur sur un réseau.}
+				\mauvaise{... identifier l'adresse MAC du routeur.} 				
+ 				\mauvaise{... établir une connexion lorsque deux ordinateurs veulent communiquer.}
+ 				\mauvaise{... transformer un nom en adresse IP.}
+				\mauvaise{... aiguiller les paquets vers leurs destinations.}
+			\end{reponses}
+\end{question}
+}
+
+
+%--------
+% DOCUMENT
+%--------
+\begin{document}
+
+\newcommand{\sujet}{
+\exemplaire{0}{
+
+
+\AMCassociation{\id}
+%%% debut de l'en-tête des copies :   
+
+
+\begin{minipage}{.4\linewidth}
+\centering\large\bf Interro SNT\\Mercredi 20.11.2019 
+\end{minipage}
+\champnom{\fbox{    
+                \begin{minipage}{.5\linewidth}
+                  \begin{center} \nom{} \prenom{} \end{center}
+		
+                \end{minipage}
+         }}
+		
+\vspace{5ex}
+
+%%% fin de l'en-tête
+
+\melangegroupe{qqs}
+
+\restituegroupe{qqs}
+
+}
+}
+\csvreader[head to column names]{../liste216.csv}{}{\sujet}
+
+\end{document}
