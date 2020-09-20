@@ -1,5 +1,5 @@
 # sujets-AMC
-Sujets lycée de questionnaire AMC
+Sujets lycée de questionnaire AMC https://www.auto-multiple-choice.net/
 
 Des ressources AMC pour le lycée, il faut compiler certains projets avec pythontex. Pour cela, mettre le fichier prePythonTex4AMC dans le dossier du  projet.
 Il faut que pythontex soit installé (https://www.ctan.org/pkg/pythontex) et que la ligne "python3 /usr/share/texmf-dist/scripts/pythontex/pythontex3.py $AMC_JOBNAME.pytxcode" pointe correctement sur pythontex.py (ou pythontex3.py dans l'exemple car j'utilise python 3)
