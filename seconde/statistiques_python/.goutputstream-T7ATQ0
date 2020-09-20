@@ -1,0 +1,491 @@
+%%AMC:preprocess_command=/home/luc/Projets-QCM/211/S1_Stat/prePythonTex4AMC
+%%AMC:jobspecific=1
+%%AMC:latex_engine=pdflatex --shell-escape
+
+% Compilation Texmaker : Utilisateur/Commandes utilisateur
+%--------------------------
+% Shell Python :
+% pdflatex --shell-escape -synctex=1 -interaction=nonstopmode %.tex|
+% python /usr/share/texlive/texmf-dist/scripts/pythontex/pythontex.py %.tex|
+% pdflatex --shell-escape -synctex=1 -interaction=nonstopmode %.tex|
+%------------------------
+% Copier-coller la ligne ci-dessous dans Utilisateur/Commandes Utilisateur/Editer Commandes Utilisateur
+%------------------------
+% pdflatex --shell-escape -synctex=1 -interaction=nonstopmode %.tex | python /usr/share/texlive/texmf-dist/scripts/pythontex/pythontex.py %.tex | pdflatex --shell-escape -synctex=1 -interaction=nonstopmode %.tex
+%--------------------------
+
+\documentclass[a4paper]{article}
+\RequirePackage{etex}
+\usepackage[utf8]{inputenc}    
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\selectlanguage{french}
+\usepackage[francais,bloc,completemulti,ensemble]{automultiplechoice}    
+\usepackage{fancyhdr,amssymb,amsmath}
+\usepackage{multicol}
+
+\usepackage[onelanguage,french,linesnumbered,ruled]{algorithm2e}
+
+% ---------- Utilisation de codes Python -----
+\usepackage{pythontex}
+\usepackage{csvsimple}
+
+%----------------------------------------------
+\def\barO{b=1.25,m=O}
+\def\barQ{b=1,m=-0.1}
+\def\barS{b=1,m=0}
+\def\barP{b=1.5,m=-0.1}
+\def\barR{b=2,m=-0.1}
+
+\begin{pythontexcustomcode}[begin]{pylab}
+# Might want sys.path.insert(1, '../src/') in some cases
+# But then it would probably be better to use virtualenv
+sys.path.append('../')
+from python_preamble import *
+\end{pythontexcustomcode}
+
+\begin{pycode}
+import numpy as np
+import math
+from fractions import Fraction as F
+from sympy import *
+
+
+np.random.seed(12345)
+# IMPORTANT : Graine pour la fonction random
+
+
+def polyv2(b,p,d,q) :
+	x=Symbol('x')
+	myp = expand((x-b)**p*(x-d)**q)
+	return latex(myp)
+	
+def dp1x(a,b,c) :
+    x=Symbol('x')
+    y=Symbol('y')
+    f=(a*y-1)/(b*x-1)**c
+
+    g=diff(f,x,1)
+    g2=g/b
+    g3=g*(-1)
+    g4=g2*(-1)
+
+	 
+    gl = latex(g)
+    g2l = latex(g2)
+    g3l = latex(g3)
+    g4l = latex(g4)
+
+    return np.array([gl,g2l,g3l,g4l])
+
+def fonction(a,x1,x2) :
+    x=Symbol('x')
+    f=a*x*x-a*(x1+x2)*x+a*x1*x2
+    fl=latex(f)
+    d=np.random.randint(2,5)
+    y=-a*(x1+x2)*x+a*(x1*x2+d**2)
+    yl=latex(y)
+    yi=a*(d**2+x1*x2-(x1+x2)*d)
+    yib=a*(d**2+x1*x2+(x1+x2)*d)
+    return np.array([fl,yl,d,yi,yib])
+
+def canonique(a,b,c) :
+    x=Symbol('x')
+    delta=b*b-4*a*c
+    xs=F(-b,2*a)
+    ys=F(-delta,4*a)
+    f=a*(x-xs)**2+ys
+    fl = latex(f)
+    f2=a*(x+xs)**2+ys
+    f2l = latex(f2)
+    f3=a*(x-xs)**2-ys
+    f3l = latex(f3)
+    f4=a*(x+xs)**2-ys
+    f4l = latex(f4)
+    return np.array([fl,f2l,f3l,f4l])
+
+def sommet(a,b,c) :
+    delta=b*b-4*a*c
+    xs=F(b+c,2)
+    ys=F(a*(xs-b)*(xs-c),1)
+    return np.array([xs,ys])
+
+def factor(b,c) :
+    x=Symbol('x')
+    ff=(x-b)*(x-c)
+    ffl = latex(ff)
+    ff2=(x-b)*(x+c)
+    ff2l=latex(ff2)
+    ff3=(x+b)*(x-c)
+    ff3l=latex(ff3)
+    ff4=(x+b)*(x+c)
+    ff4l=latex(ff4)
+    return np.array([ffl,ff2l,ff3l,ff4l])
+
+def coeff() :
+    pair=[2,4,6,8,10]
+    impair=[1,3,5,7,9]
+    a=np.random.randint(-7,7)
+    while a == 0:
+        a=np.random.randint(-7,7)
+    x1=np.random.randint(-10,-2)
+    if (x1&1) :
+        x2=np.random.choice(impair) 
+    else :
+        x2=np.random.choice(pair)
+    if x2==-x1:
+        x2=x2+2
+    if -x1 > x2:
+        x3=x2
+        x4=-x1
+    else:
+        x3=-x1
+        x4=x2
+    return np.array([a,x1,x2,x3,x4])
+
+def image(a,b,c,x) :
+    return a*x*x+b*x+c
+
+def signe(a):
+    if a > 0:
+        return ("positif","negatif")
+    return ("negatif","positif")
+
+def position(a):
+    if a > 0:
+        return ("au-dessous","au-dessus")
+    return ("au-dessus","au-dessous")
+
+def algosuite(u0,r,q,n):
+    u=u0
+    for i in range(1,n+1):
+        u=q*u
+        u=u+r
+    return u
+
+def suitearith(a0,r,q):
+    aq=a0
+    for i in range(1,q+1):
+        aq=r+aq
+    return aq
+
+def suitegeo(a0,r,q):
+    aq=a0
+    for i in range(1,q+1):
+        aq=r*aq
+    return aq
+
+def sommegeo(q,n):
+    return round((1-q**n)/(1-q),2)
+
+def sommearith(u0,r,n):
+    return round((u0+suitearith(u0,r,n))/2,2)
+
+def limit(a,b,q):
+    if q<1:
+       return [a,0,"-\infty","+\infty"]
+    else:
+        if b > 0:
+            return ["+\infty",a,0,"-\infty"]
+    return ["-\infty",a,0,"+\infty"]
+
+def rand_list():
+	 a=np.random.randint(7,8)
+	 list = []
+	 for i in range(a):
+	 	list.append(np.random.randint(0,20))
+	 return list
+
+def mediane(liste):
+	liste.sort()
+	if len(liste) == 8 :
+		m=((liste[(len(liste)-1)//2]+liste[len(liste)//2])/2)
+	else :
+		m=liste[len(liste)//2]
+	return m
+
+\end{pycode}
+
+\def\AMCformQuestion#1{{\sc Question #1 :}}
+
+
+\element{stat}{
+
+\multicolumn{•}{•}{•} 
+}
+
+\element{arith}{
+
+\pyc{r=np.random.randint(2,7)}
+\pyc{a0=np.random.randint(2,7)}
+\pyc{t=np.random.randint(10,24)}
+\pyc{atm1=suitearith(a0,r,t-1)}
+
+Pour les 2 questions qui suivantes, on considère la suite arithmétique $(a_{n})$ de raison $r=\py{r}$ et de premier terme $a_{0}=\py{a0}$.
+
+\pyc{listeA=rand_list()}
+\pyc{M=sum(listeA)/len(listeA)}
+\pyc{m=mediane(listeA)}
+
+\pyc{print(listeA, " de moyenne ",M," et de mediane ",m)}
+
+
+
+
+\begin{questionmult}{arithDef}\bareme{formula=NBC*2-(0.1*NMC),p=0,MAX=2}
+\AMCnoCompleteMulti
+Quelle affirmation n'est pas exacte ?
+\begin{multicols}{2}\AMCBoxedAnswers
+			\begin{reponses}
+				\mauvaise{$a_{n}=\py{a0}+n \times \py{r}$}
+				\mauvaise{$a_{n+1}=a_{n}+\py{r}$}
+				\mauvaise{$a_{p}=a_{p-1}+\py{r}$}
+				\bonne{$a_{\py{t}}=\py{atm1}$}
+				\mauvaise{$a_{0}=a_{1}-\py{r}$}
+				\bonne{$a_{n}=\py{a0} \times \py{r}^{n}$}
+			\end{reponses}
+\end{multicols}
+\end{questionmult}
+
+\pyc{q=np.random.randint(25,35)}
+\pyc{aq=suitearith(a0,r,q)}
+\pyc{aqm1=suitearith(a0,r,q-1)}
+\pyc{aqp1=suitearith(a0,r,q+1)}
+\pyc{aqg=suitegeo(a0,r,q)}
+\pyc{aqgm1=suitegeo(a0,r,q-1)}
+\pyc{aqgp1=suitegeo(a0,r,q+1)}
+
+\begin{question}{arithTerme}\bareme{\barQ}
+Quelle est la valeur de $a_{\py{q}}$ ?
+\begin{multicols}{2}\AMCBoxedAnswers
+			\begin{reponses}
+				\mauvaise{$a_{\py{q}}=\py{aqg}$}
+				\mauvaise{$a_{\py{q}}=\py{aqgm1}$}
+				\mauvaise{$a_{\py{q}}=\py{aqgp1}$}
+				\mauvaise{$a_{\py{q}}=\py{aqp1}$}
+				\mauvaise{$a_{\py{q}}=\py{aqm1}$}
+				\bonne{$a_{\py{q}}=\py{aq}$}
+			\end{reponses}
+\end{multicols}
+\end{question}
+}
+
+\element{geo}{
+\pyc{q=np.random.randint(2,8)}
+\pyc{b0=np.random.randint(1,9)}
+
+\pyc{t=np.random.randint(9,13)}
+\pyc{bt=suitegeo(b0,q,t)}
+Pour les 2 questions qui suivantes, on considère la suite géométrique $(b_{n})$ de raison $q=\py{q}$ et de premier terme $b_{0}=\py{b0}$.
+
+\begin{questionmult}{geoDef}\bareme{formula=NBC*1-(0.1*NMC),p=0,MAX=1}
+\AMCnoCompleteMulti
+Quelle affirmation est exacte ?
+\begin{multicols}{2}\AMCBoxedAnswers
+			\begin{reponses}
+				\mauvaise{$b_{n+1}=\py{b0}\times b_{n}$}
+				\bonne{$b_{n+1}=\py{b0}\times \py{q}^n$}
+				\mauvaise{$b_{n}=\py{b0} + \py{q} \times n$}
+				\mauvaise{$b_{n}=\py{r}\times b_{n}$}
+				\mauvaise{$b_{n}=\py{q}\times \py{b0}^n$}
+				\bonne{$b_{\py{t}}=\py{bt}$}
+			\end{reponses}
+\end{multicols}
+\end{questionmult}
+
+\pyc{n=np.random.randint(12,15)}
+\pyc{bt=suitegeo(b0,q,n)}
+\pyc{t=np.random.randint(1000,2000)}
+\pyc{max=bt-t}
+
+\begin{question}{geoTerme}\bareme{\barQ}
+Quelle est la valeur de $n$ à partir de laquelle laquelle $b_{n}>\py{max}$ ?
+			\begin{reponseshoriz}
+				\mauvaise{$n=\py{n-1}$}
+				\mauvaise{$n=\py{n+1}$}
+				\mauvaise{$n=+\infty$}
+				\mauvaise{$n=\py {q}$}
+				\bonne{$n=\py{n}$}
+			\end{reponseshoriz}
+\end{question}
+}
+
+
+\element{somme}{
+\pyc{liste=[1,2,4,5,10,20,25,50];signe=np.random.choice([-1,1]);p=signe*np.random.choice(liste);q=(100+p)/100;a=int(-100/p);b=int((100+p)/p)}
+\pyc{p=np.random.randint(4,6)}
+
+\pyc{s1=sommegeo(q,p)}
+\pyc{s2=sommegeo(q,p-1)}
+\pyc{s3=sommegeo(q,p+1)}
+
+\pyc{s4=sommearith(1,q,p)}
+
+Soit $S_{n}=1+\py{q}+\py{q}^2+\py{q}^3+ \dots + \py{q}^n$
+
+\begin{question}{somme1}\bareme{\barS}
+Calculer $S_{\py{p}}$ à $10^{-2}$ près.
+			\begin{reponseshoriz}
+				\mauvaise{$S_{\py{p}} \approx \py{s1}$}
+				\mauvaise{$S_{\py{p}} \approx \py{s2}$}
+				\bonne{$S_{\py{p}} \approx \py{s3}$}
+				\mauvaise{$S_{\py{p}} \approx \py{s4}$}
+			\end{reponseshoriz}
+\end{question}
+
+
+\begin{question}{sommen}\bareme{\barR}
+Quelle est l'expression de $S_{n}$ ?
+\begin{multicols}{2}\AMCBoxedAnswers
+			\begin{reponses}
+				\mauvaise{$S_{n}=\dfrac{1-\py{q}^n}{1-\py{q}}$}
+				\mauvaise{$S_{n}=\dfrac{1+\py{q}^n}{2}$}
+				\bonne{$S_{n}=\dfrac{1-\py{q}^{n+1}}{1-\py{q}}$}
+				\mauvaise{$S_{n}=\py{q} \times \dfrac{1-\py{q}^n}{1-\py{q}}$}
+				\mauvaise{$S_{n}=\py{q} \times \dfrac{1-\py{q}^{n+1}}{1-\py{q}}$}
+				\mauvaise{$S_{n}=\py{q} \times \dfrac{1-\py{q}^{n+1}}{1-\py{q}^{n}}$}
+			\end{reponses}
+\end{multicols}
+\end{question}
+
+
+\begin{question}{aETb}\bareme{\barQ}
+Quelle sont les valeurs $a$ et $b$ telles que $S_{n}=a+b \times \py{q}^n$ ?
+\begin{multicols}{2}\AMCBoxedAnswers
+			\begin{reponses}
+				\mauvaise{$a=\py{b}$ et $b=\py{a}$}
+				\mauvaise{$a=\py{b}$ et $b=\py{-a}$}
+				\mauvaise{$a=\py{-a}$ et $b=\py{b}$}
+				\bonne{$a=\py{a}$ et $b=\py{b}$}
+				\mauvaise{$a=\py{-a}$ et $b=\py{-b}$}
+				\mauvaise{$a=\py{a}$ et $b=\py{-b}$}
+
+			\end{reponses}
+\end{multicols}
+\end{question}
+
+
+\pyc{limite=limit(a,b,q)}
+
+\begin{question}{limite}\bareme{\barP}
+En déduire la limite de $S_{n}$ lorsque n devient très grand...
+\begin{multicols}{2}\AMCBoxedAnswers
+			\begin{reponses}
+				\bonne{$\lim\limits_{n \rightarrow +\infty } S_{n}=\py{limite[0]}$}
+				\mauvaise{$\lim\limits_{n \rightarrow +\infty } S_{n}=\py{limite[1]}$}
+				\mauvaise{$\lim\limits_{n \rightarrow +\infty } S_{n}=\py{limite[2]}$}
+				\mauvaise{$\lim\limits_{n \rightarrow +\infty } S_{n}=\py{limite[3]}$}
+				\mauvaise{$\lim\limits_{n \rightarrow +\infty } S_{n}=\py{b}$}
+				\mauvaise{$\lim\limits_{n \rightarrow +\infty } S_{n}=\py{-b}$}
+			\end{reponses}
+\end{multicols}
+\end{question}
+}
+
+%--------
+% DOCUMENT
+%--------
+\begin{document}
+
+\newcommand{\sujet}{
+\exemplaire{1}{
+%\pyc{a=np.random.randint(2,7)} %
+
+%\pyc{x1=np.random.randint(-6,-1)} %
+ 
+%\pyc{x2=np.random.randint(2,8)} % 
+\pyc{coefs=coeff()}
+\pyc{a=coefs[0]}
+\pyc{x1=coefs[1]}
+\pyc{x2=coefs[2]}
+\pyc{x3=coefs[3]}
+\pyc{x4=coefs[4]}
+
+\AMCassociation{\id}
+%%% debut de l'en-tête des copies :
+
+
+
+
+
+
+	%%% codage des numéros d'étudiants sur 3 chiffres par les candidats et encadré d'écriture manuelle des noms
+	%\vspace*{3mm}
+	%{\setlength{\parindent}{0pt}\AMCcodeGridInt{etu}{3}\hspace*{\fill}
+	%\begin{minipage}[b]{12.8cm} %12cm
+
+%----------------------------------------
+
+	 %\hfill\champnom{\fbox{
+	 %\begin{minipage}{0.96\linewidth}
+	%	\vspace*{3mm} %3mm
+		
+	%	$\leftarrow$ {\footnotesize  Codez votre QCM-Number.\hspace{1.6ex}} || NOM :
+		
+	%	{\footnotesize  ( centaines, dizaines et unités )\hspace{2.19ex}} || Prénom :
+		
+	%	{\footnotesize  Complétez le cadre ci-contre} $\rightarrow$ \hspace{0.2ex} || Groupe :		
+		%\hspace{4.438cm}|| Groupe :
+	%	\vspace*{3mm}
+	 %\end{minipage}
+	  %  }
+	  % }
+	%\hfill  %\vspace{0.25ex}
+%-------------------------------------
+
+
+	
+	
+\vspace{2ex}
+
+%%% fin de l'en-tête
+
+
+
+\restituegroupe{arith}
+
+\begin{center}
+\hrule\vspace{1mm}
+\end{center}
+
+\restituegroupe{geo}
+
+\begin{center}
+\hrule\vspace{1mm}
+\end{center}
+
+\restituegroupe{somme}
+
+%\AMCcleardoublepage
+\clearpage
+\AMCdebutFormulaire
+
+%%% début de l’en-tête de la feuille de réponses
+\begin{minipage}{.4\linewidth}
+\centering\large\bf Evaluation  Mathématiques TES4\\Mardi 26.11.2019 \end{minipage}
+\champnom{\fbox{    
+                \begin{minipage}{.5\linewidth}
+                  \begin{center} \nom{} \prenom{} \end{center}
+		
+                \end{minipage}
+         }}
+
+\begin{center}
+\bf Les réponses aux questions sont à donner exclusivement sur cette feuille : 
+les réponses données de l'autre côté de la feuille ne seront pas prises en compte.
+\\
+Les questions ont une unique bonne réponse. L'indiquer sur cette feuille en noircissant la case correspondante au stylo à bille noir.\\
+Les réponses fausses retirent un quart des points. Une absence de réponse n'enlève pas de points.
+Pour rectifier une erreur, utilisez un correcteur "blanc" pour faire disparaître complètement la case noircie par erreur.\\
+La calculatrice doit être mise en mode examen.
+\
+\end{center}
+\AMCboxStyle{shape=square,size=4.25ex,down=.4ex,rule=.5pt,outsidesep=.1em,color=black}
+%%% fin de l’en-tête de la feuille de réponses
+\formulaire
+
+}
+}
+\csvreader[head to column names]{../211.csv}{}{\sujet}
+
+\end{document}
