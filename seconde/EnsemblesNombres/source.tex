@@ -1,0 +1,216 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fp}
+%\usepackage[french]{babel}
+%\usepackage[babel=true,kerning=true]{microtype}
+
+\usepackage[francais,bloc,completemulti]{automultiplechoice}
+\usepackage{csvsimple}
+\usepackage{siunitx}
+\sisetup{locale = FR,detect-all,quotient-mode=fraction,
+input-product=*, list-final-separator = { \translate{et} },
+list-pair-separator = { \translate{et} },range-phrase = { \translate{à} },
+separate-uncertainty = true,group-minimum-digits=3}
+
+\def\barQ{b=1,m=-0.5}
+
+\newcommand{\sujet}{%
+\exemplaire{1}{%
+%\shorthandon{;}
+%%% debut de l’en-tête des copies :
+\AMCassociation{\id}
+
+\vspace*{.5cm}
+\begin{minipage}{.4\linewidth}
+\centering\large\bf QCM Mathématiques 216\\ Examen du 26/09/2019
+\end{minipage}
+\champnom{\fbox{\begin{minipage}{.5\linewidth}
+
+\centering\textsc{\nom{} \prenom{}}
+%\vspace*{.5cm}\dotfill
+\vspace*{2mm}
+\end{minipage}}}
+
+%%% fin de l’en-tête
+
+\begin{center}
+\hrule\vspace{2mm}
+\bf\Large Calculs
+\vspace{1mm}\hrule
+\end{center}
+
+\restituegroupe{calculs}
+
+
+\begin{center}
+\hrule\vspace{2mm}
+\bf\Large Ensembles
+\vspace{2mm}\hrule
+\end{center}
+
+\restituegroupe{ensembles}
+
+}%fin commande \exemplaire
+}%fin commande \newcommand
+\begin{document}
+
+%%% préparation des groupes
+
+\setdefaultgroupmode{withreplacement}
+
+\element{calculs}{
+\begin{question}{odg}\bareme{\barQ}
+\FPeval\VQa{trunc(3+random*5,1)}
+\FPeval\VQc{clip(100-VQa*7.125)}
+\FPeval\VQd{clip((100-VQa*7.125)/10)}
+\FPeval\VQe{clip((100-VQa*7.125)*10)}
+Sans utiliser de calculette, indique la réponse la plus probable pour le calcul de $A = 100 - \VQa{} \times 7,125$.
+\begin{reponseshoriz}
+\bonne{A = \VQc}
+\mauvaise{\VQd}
+\mauvaise{\VQe}
+\end{reponseshoriz}
+\end{question}
+}
+
+\element{calculs}{
+\begin{question}{frac}
+
+\FPeval\VQb{trunc(4+random*4,0)}
+\FPeval\VQsomme{clip(7-6/(3-VQb))}
+\FPeval\VQsommeA{clip(1/(3-VQb))}
+\FPeval\VQsommeB{clip(7+6/(3-VQb))}
+\FPeval\VQsommeC{clip(7+6/(3+VQb))}
+Calculer $B=7 - \dfrac{6}{3-\VQb{}}$. Quelle est la bonne réponse~?
+\begin{reponseshoriz}
+\bonne{\VQsomme}
+\mauvaise{\VQsommeA}
+\mauvaise{\VQsommeB}
+\mauvaise{\VQsommeC}
+\end{reponseshoriz}
+\end{question}
+}
+
+\element{calculs}{
+\begin{question}{calc4}
+L'une des expressions suivantes est égale à l'expression 2a - b. Laquelle~?
+\begin{reponseshoriz}
+\mauvaise{$a + (-b - a)$}
+\mauvaise{$2(a - b)$}
+\bonne{$a - (b - a)$}
+\mauvaise{$-(b - a) - a$}
+\end{reponseshoriz}
+\end{question}
+}
+
+
+\element{calculs}{
+\begin{question}{rais}
+Une seule des affirmations suivantes est exacte. Laquelle~?
+\begin{reponses}
+\bonne{L'opposé d'une somme est la somme des opposés.}
+\mauvaise{L'opposé d'un produit est le produit des opposés.}
+\mauvaise{Le carré d'une somme est la somme des carrés.}
+\end{reponses}
+\end{question}
+}
+
+\element{calculs}{
+\begin{question}{diffcarres}
+Quelle est l'expression qui n'est pas une différence de deux carrés~?
+\begin{reponseshoriz}
+\mauvaise{$a^{2}-b^{2}$}
+\mauvaise{$(a+b)^{2}-c^{2}$}
+\mauvaise{$1-(a+b-c)^2$}
+\bonne{$(a-b)^{2}$}
+\end{reponseshoriz}
+\end{question}
+}
+
+\element{ensembles}{
+\begin{question}{ensemblez}
+Parmi les inclusions suivantes, une seule est fausse : laquelle ?
+\begin{reponseshoriz}
+\bonne{$\mathbb{R}\subset\mathbb{Q}$}
+\mauvaise{$\mathbb{N}\subset\mathbb{R}$}
+\mauvaise{$\mathbb{Z}\subset\mathbb{Q}$}
+\mauvaise{$\mathbb{Z}\subset\mathbb{D}$}
+\end{reponseshoriz}
+\end{question}
+}
+
+
+\element{ensembles}{
+\begin{question}{ensemble2}
+L’ensemble des nombres entiers relatifs se note :
+\begin{reponseshoriz}
+\mauvaise{$\mathbb{N}$}
+\bonne{$\mathbb{Z}$}
+\mauvaise{$\mathbb{D}$}
+\mauvaise{$\mathbb{Q}$}
+\mauvaise{$\mathbb{R}$}
+\end{reponseshoriz}
+\end{question}
+}
+
+\element{ensembles}{
+\begin{questionmult}{intervalle}
+\AMCnoCompleteMulti
+\FPeval{\x}{trunc(1+random*9,0)}
+\FPiflt{\x}{5} \FPeval\VQa{trunc(10+random*30,0)} \else \FPeval\VQa{trunc(10-random*30,0)} \fi
+
+\FPeval\VQb{trunc(60+random*30,0)}
+Si $I = [\VQa{};+\infty[$ et $J = ]-\infty;\VQb{}]$
+\begin{reponseshoriz}
+\bonne{$I \cap J=[\VQa;\VQb]$}\bareme{b=0.5}
+\bonne{$I \cup J=]-\infty;+\infty[$}\bareme{b=0.5}
+\mauvaise{$I \cup J=[\VQa;\VQb[$}\bareme{b=0,m=-0.5}
+\mauvaise{$I \cap J=[-\infty;\VQa]$}\bareme{b=0,m=-0.5}
+\mauvaise{$I \cup J=[-\infty;\VQb]$}\bareme{b=0,m=-0.5}
+
+\end{reponseshoriz}
+\end{questionmult}
+}
+
+\element{ensembles}{
+\begin{question}{decimal}
+\prenom effectue la division de 17 par 125 avec sa calculette. Comment doit-il inscrire le résultat obtenu ?
+\begin{reponseshoriz}
+\bonne{$\dfrac{17}{125}=0,136$}
+\mauvaise{$\dfrac{17}{125}=0,136...$}
+\mauvaise{$\dfrac{17}{125}\approx 0,136$}
+\mauvaise{Laisser $\dfrac{17}{125}$}
+\end{reponseshoriz}
+\end{question}
+}
+
+
+
+\element{ensembles}{
+\begin{question}{inegalite}
+\FPeval{\x}{trunc(1+random*9,0)}
+\FPiflt{\x}{5} \FPeval\VQa{trunc(10+random*30,0)} \else \FPeval\VQa{trunc(10-random*30,0)} \fi
+\FPeval\VQb{trunc(10+random*30,0)}
+\FPeval\VQb{trunc(60+random*30,0)}
+$\VQa{}<x\leq\VQb{}$ est équivalent à:
+\begin{reponseshoriz}
+\bonne{$x\in]\VQa;\VQb]$}
+\mauvaise{$x\in[\VQa;\VQb]$}
+\mauvaise{$x\in]\VQa;\VQb[$}
+\mauvaise{$x\in[\VQa;\VQb[$}
+
+
+\end{reponseshoriz}
+\end{question}
+}
+
+
+%%génération des sujets
+\csvreader[head to column names]{../liste.csv}{}{\sujet}
+%\shorthandoff{;} 5 [3]
+%\csvreader[head to column names,separator=semicolon]{liste.csv}{}{\sujet}
+\end{document}
