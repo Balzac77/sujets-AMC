@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2020.9.26)  4 OCT 2020 08:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2020.9.26)  5 OCT 2020 10:21
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
-**\nonstopmode\def\NoHyperRef{1}\def\NoWatermarkExterne{1}\def\CorrigeIndivExte
-rne{1}\input{"source.tex"}
+**\nonstopmode\def\NoWatermarkExterne{1}\def\CorrigeIndivExterne{1}\def\NoHyper
+Ref{1}\input{"source.tex"}
 (./source.tex (/usr/share/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2019/12/20 v1.4l Standard LaTeX document class
 (/usr/share/texmf-dist/tex/latex/base/size10.clo
@@ -1165,11 +1165,34 @@ Underfull \hbox (badness 10000) in paragraph at lines 387--387
 
 ] [2
 
+]
+Underfull \hbox (badness 10000) in paragraph at lines 387--387
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 387--387
+
+ []
+
+[1
+
+] [2
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 387--387
+
+ []
+
+[1
+
+] [2
+
 ] (./amc-compiled.aux) ) 
 Here is how much of TeX's memory you used:
  8605 strings out of 480478
- 132651 string characters out of 5905959
- 451226 words of memory out of 5000000
+ 132653 string characters out of 5905959
+ 452226 words of memory out of 5000000
  24492 multiletter control sequences out of 15000+600000
  538102 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1181,10 +1204,10 @@ texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf-dist/font
 s/type1/public/cm-super/sfcc1000.pfb></usr/share/texmf-dist/fonts/type1/public/
 cm-super/sfrm1000.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sftt10
 00.pfb>
-Output written on amc-compiled.pdf (62 pages, 345481 bytes).
+Output written on amc-compiled.pdf (66 pages, 361364 bytes).
 PDF statistics:
- 230 PDF objects out of 1000 (max. 8388607)
- 158 compressed objects within 2 object streams
+ 242 PDF objects out of 1000 (max. 8388607)
+ 166 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
