@@ -1,0 +1,547 @@
+=>PYTHONTEX#CC:pylab:begin#none#none#0#code#####40#
+# Might want sys.path.insert(1, '../src/') in some cases
+# But then it would probably be better to use virtualenv
+sys.path.append('../')
+from python_preamble import *
+=>PYTHONTEX#py#default#default#0#code#####47#
+import numpy as np
+import math
+from fractions import Fraction as F
+from sympy import *
+
+
+np.random.seed(12345)
+# IMPORTANT : Graine pour la fonction random
+
+
+def polyv2(b,p,d,q) :
+	x=Symbol('x')
+	myp = expand((x-b)**p*(x-d)**q)
+	return latex(myp)
+	
+def dp1x(a,b,c) :
+    x=Symbol('x')
+    y=Symbol('y')
+    f=(a*y-1)/(b*x-1)**c
+
+    g=diff(f,x,1)
+    g2=g/b
+    g3=g*(-1)
+    g4=g2*(-1)
+
+	
+    gl = latex(g)
+    g2l = latex(g2)
+    g3l = latex(g3)
+    g4l = latex(g4)
+
+    return np.array([gl,g2l,g3l,g4l])
+
+def fonction(a,x1,x2) :
+    x=Symbol('x')
+    f=a*x*x-a*(x1+x2)*x+a*x1*x2
+    fl=latex(f)
+    d=np.random.randint(2,5)
+    y=-a*(x1+x2)*x+a*(x1*x2+d**2)
+    yl=latex(y)
+    yi=a*(d**2+x1*x2-(x1+x2)*d)
+    yib=a*(d**2+x1*x2+(x1+x2)*d)
+    return np.array([fl,yl,d,yi,yib])
+
+def canonique(a,b,c) :
+    x=Symbol('x')
+    delta=b*b-4*a*c
+    xs=F(-b,2*a)
+    ys=F(-delta,4*a)
+    f=a*(x-xs)**2+ys
+    fl = latex(f)
+    f2=a*(x+xs)**2+ys
+    f2l = latex(f2)
+    f3=a*(x-xs)**2-ys
+    f3l = latex(f3)
+    f4=a*(x+xs)**2-ys
+    f4l = latex(f4)
+    return np.array([fl,f2l,f3l,f4l])
+
+def sommet(a,b,c) :
+    delta=b*b-4*a*c
+    xs=F(b+c,2)
+    ys=F(a*(xs-b)*(xs-c),1)
+    return np.array([xs,ys])
+
+def factor(b,c) :
+    x=Symbol('x')
+    ff=(x-b)*(x-c)
+    ffl = latex(ff)
+    ff2=(x-b)*(x+c)
+    ff2l=latex(ff2)
+    ff3=(x+b)*(x-c)
+    ff3l=latex(ff3)
+    ff4=(x+b)*(x+c)
+    ff4l=latex(ff4)
+    return np.array([ffl,ff2l,ff3l,ff4l])
+
+def coeff() :
+    pair=[2,4,6,8,10]
+    impair=[1,3,5,7,9]
+    a=np.random.randint(-7,7)
+    while a == 0:
+        a=np.random.randint(-7,7)
+    x1=np.random.randint(-10,-2)
+    if (x1&1) :
+        x2=np.random.choice(impair)
+    else :
+        x2=np.random.choice(pair)
+    if x2==-x1:
+        x2=x2+2
+    if -x1 > x2:
+        x3=x2
+        x4=-x1
+    else:
+        x3=-x1
+        x4=x2
+    return np.array([a,x1,x2,x3,x4])
+
+def image(a,b,c,x) :
+    return a*x*x+b*x+c
+
+def signe(a):
+    if a > 0:
+        return ("positif","negatif")
+    return ("negatif","positif")
+
+def position(a):
+    if a > 0:
+        return ("au-dessous","au-dessus")
+    return ("au-dessus","au-dessous")
+
+def algoalgosuite(u0,r,q,n):
+    u=u0
+    for i in range(1,n+1):
+        u=q*u
+        u=u+r
+    return u
+
+def suitearith(a0,r,q):
+    aq=a0
+    for i in range(1,q+1):
+        aq=r+aq
+    return aq
+
+def suitegeo(a0,r,q):
+    aq=a0
+    for i in range(1,q+1):
+        aq=r*aq
+    return aq
+
+def sommegeo(q,n):
+    return round((1-q**n)/(1-q),2)
+
+def sommearith(u0,r,n):
+    return round((u0+suitearith(u0,r,n))/2,2)
+
+def limit(a,b,q):
+    if q<1:
+       return [a,0,"-\infty","+\infty"]
+    else:
+        if b > 0:
+            return ["+\infty",a,0,"-\infty"]
+    return ["-\infty",a,0,"+\infty"]
+
+=>PYTHONTEX#py#default#default#1#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#2#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#3#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#4#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#5#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#6#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#7#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#8#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#9#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#10#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#11#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#12#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#13#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#14#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#15#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#16#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#17#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#18#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#19#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#20#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#21#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#22#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#23#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#24#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#25#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#26#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#27#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#28#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#29#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#30#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#31#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#32#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#33#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#34#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#35#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#36#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#37#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#38#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#39#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#40#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#41#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#42#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#43#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#44#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#45#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#46#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#47#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#48#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#49#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#50#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#51#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#52#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#53#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#54#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#55#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#56#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#57#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#58#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#59#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#60#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#61#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#62#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#63#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#64#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#65#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#66#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#67#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#68#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#69#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#70#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#71#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#72#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#73#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#74#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#75#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#76#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#77#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#78#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#79#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#80#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#81#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#82#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#83#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#84#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#85#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#86#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#87#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#88#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#89#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#90#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#91#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#92#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#93#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#94#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#95#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#96#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#97#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#98#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#99#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#100#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#101#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#102#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#103#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#104#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#105#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#106#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#107#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#108#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#109#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#110#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#111#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#112#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#113#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#114#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#115#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#116#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#117#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#118#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#119#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#120#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#121#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#122#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#123#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#124#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#125#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#126#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#127#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#128#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#129#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#130#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#131#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#132#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#133#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#134#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#135#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#136#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#137#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#138#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#139#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#140#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#141#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#142#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#143#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#144#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#145#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#146#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#147#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#148#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#149#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#150#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#151#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#152#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#153#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#154#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#155#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#156#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#157#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#158#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#159#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#160#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#161#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#162#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#163#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#164#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#165#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#166#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#167#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#168#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#169#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#170#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#171#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#172#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#173#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#174#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#175#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#176#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#177#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#178#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#179#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#180#c#####579#
+x4=coefs[4]
+=>PYTHONTEX#py#default#default#181#c#####579#
+coefs=coeff()
+=>PYTHONTEX#py#default#default#182#c#####579#
+a=coefs[0]
+=>PYTHONTEX#py#default#default#183#c#####579#
+x1=coefs[1]
+=>PYTHONTEX#py#default#default#184#c#####579#
+x2=coefs[2]
+=>PYTHONTEX#py#default#default#185#c#####579#
+x3=coefs[3]
+=>PYTHONTEX#py#default#default#186#c#####579#
+x4=coefs[4]
+=>PYTHONTEX:SETTINGS#
+version=0.17
+outputdir=pythontex-files-amc-compiled
+workingdir=.
+workingdirset=false
+gobble=none
+rerun=default
+hashdependencies=default
+makestderr=false
+stderrfilename=full
+keeptemps=none
+pyfuture=default
+pyconfuture=none
+pygments=true
+pygglobal=:GLOBAL||
+fvextfile=-1
+pyconbanner=none
+pyconfilename=stdin
+depythontex=false
+pygfamily=py|python3|
+pygfamily=pycon|pycon|
+pygfamily=sympy|python3|
+pygfamily=sympycon|pycon|
+pygfamily=pylab|python3|
+pygfamily=pylabcon|pycon|

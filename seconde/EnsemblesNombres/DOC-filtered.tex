@@ -1,4 +1,4 @@
-%%AMC:preprocess_command=
+%%AMC:preprocess_command=prePythonTex4AMC
 %%AMC:jobspecific=1
 %%AMC:latex_engine=pdflatex --shell-escape
 
@@ -53,29 +53,21 @@ separate-uncertainty = true,group-minimum-digits=3}
 %%% fin de l’en-tête
 
 \begin{center}
-\hrule\vspace{2mm}
+%\hrule\vspace{2mm}
 \bf\Large Calculs
-\vspace{1mm}\hrule
+%\vspace{1mm}\hrule
 \end{center}
 
 \restituegroupe{calculs}
 
 
 \begin{center}
-\hrule\vspace{2mm}
+%\hrule\vspace{2mm}
 \bf\Large Ensembles
-\vspace{2mm}\hrule
+%\vspace{2mm}\hrule
 \end{center}
 
 \restituegroupe{ensembles}
-
-\clearpage
-
-\begin{center}
-\hrule\vspace{2mm}
-\bf\Large Distance et valeur absolue
-\vspace{2mm}\hrule
-\end{center}
 
 \restituegroupe{valeur-absolue}
 
@@ -203,7 +195,7 @@ Si $I = [\VQa{};+\infty[$ et $J = ]-\infty;\VQb{}]$
 \end{questionmult}
 }
 
-\element{ensembles-off}{
+\element{ensembles}{
 \begin{question}{decimal}
 Un élève effectue la division de 17 par 125 avec sa calculatrice. Comment doit-on écrire le résultat obtenu ?
 \begin{reponseshoriz}
@@ -241,15 +233,15 @@ $\VQa{}<x\leq\VQb{}$ est équivalent à:
 \begin{question}{mise-equation-va}
 \FPeval{\a}{trunc(1+random*9,0)}
 \FPeval{\r}{trunc(1+random*9,0)}
-Soit le point $A(\a)$ sur une droite graduée. On cherche à trouver les positions d'un point $M_{1}$ de façon à ce que la distance entre A et M soit inférieure à $\r$.
-Ecrire l'équation traduisant la situation.
-        \AMCOpen{lines=1}{\wrongchoice[F]{f}\scoring{0}\wrongchoice[P]{p}\scoring{1}\correctchoice[J]{j}\scoring{2}}
+Sur une droite graduée on donne le point $A(\a)$. On cherche à trouver les positions d'un point $M_{1}$ de façon à ce que la distance entre A et M soit inférieure à $\r$.
+Ecrire l'équation traduisant la situation à l'aide d'une valeur absolue.
+        \AMCOpen{lines=3}{\wrongchoice[F]{f}\scoring{0}\wrongchoice[P]{p}\scoring{1}\correctchoice[J]{j}\scoring{2}}
         \end{question}
 }
 
 \element{valeur-absolue}{
 \begin{question}{resolution-equation-va}
-Résoudre l'équation de la question précédente graphiquement et/ou algébriquement.
+Résoudre l'équation de la question précédente.
         \AMCOpen{lines=3}{\wrongchoice[F]{f}\scoring{0}\wrongchoice[P]{p}\scoring{1}\correctchoice[J]{j}\scoring{2}}
         \end{question}
 }
@@ -257,20 +249,11 @@ Résoudre l'équation de la question précédente graphiquement et/ou algébriqu
 \element{valeur-absolue}{
 \begin{question}{deux-va}
 \FPeval{\b}{trunc(10+random*9,0)}
-Soit le point $B(\b)$. $M_{2}$ est équidistant aux points A et B. On cherche l'abscisse du point $M_{2}$ ?
-Ecrire l'équation traduisant la situation à l'aide de valeurs absolue.
-        \AMCOpen{lines=1}{\wrongchoice[F]{f}\scoring{0}\wrongchoice[P]{p}\scoring{1}\correctchoice[J]{j}\scoring{2}}
+Un point $B(\b)$, distinct du point A est à la même distance de M que A. Quelle sont les coordonnées du point $M_{2}$ ?
+Ecrire l'équation traduisant la situation à l'aide de valeurs absolue et la résoudre.
+        \AMCOpen{lines=3}{\wrongchoice[F]{f}\scoring{0}\wrongchoice[P]{p}\scoring{1}\correctchoice[J]{j}\scoring{2}}
         \end{question}
 }
-
-\element{valeur-absolue}{
-\begin{question}{resolution-deux-va}
-Résoudre l'équation de la question précédente graphiquement et/ou algébriquement.
-        \AMCOpen{lines=4}{\wrongchoice[F]{f}\scoring{0}\wrongchoice[P]{p}\scoring{1}\correctchoice[J]{j}\scoring{2}}
-        \end{question}
-}
-
-\setgroupmode{valeur-absolue}{fixed}
 
 
 %%génération des sujets

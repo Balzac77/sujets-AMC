@@ -1,17 +1,3 @@
-%%AMC:preprocess_command=
-%%AMC:jobspecific=1
-%%AMC:latex_engine=pdflatex --shell-escape
-
-% Compilation Texmaker : Utilisateur/Commandes utilisateur
-%--------------------------
-% Shell Python :
-% pdflatex --shell-escape -synctex=1 -interaction=nonstopmode %.tex|
-% python /usr/share/texlive/texmf-dist/scripts/pythontex/pythontex.py %.tex|
-% pdflatex --shell-escape -synctex=1 -interaction=nonstopmode %.tex|
-%------------------------
-% Copier-coller la ligne ci-dessous dans Utilisateur/Commandes Utilisateur/Editer Commandes Utilisateur
-%------------------------
-% pdflatex --shell-escape -synctex=1 -interaction=nonstopmode %.tex | python /usr/share/texlive/texmf-dist/scripts/pythontex/pythontex.py %.tex | pdflatex --shell-escape -synctex=1 -interaction=nonstopmode %.tex
 \documentclass[a4paper]{article}
 
 \usepackage[utf8x]{inputenc}
@@ -19,7 +5,6 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{fp}
-\usepackage{pythontex}
 %\usepackage[french]{babel}
 %\usepackage[babel=true,kerning=true]{microtype}
 
@@ -41,7 +26,7 @@ separate-uncertainty = true,group-minimum-digits=3}
 
 \vspace*{.5cm}
 \begin{minipage}{.4\linewidth}
-\centering\large\bf QCM Mathématiques 211\\ Examen du 09/10/2020
+\centering\large\bf QCM Mathématiques 216\\ Examen du 26/09/2019
 \end{minipage}
 \champnom{\fbox{\begin{minipage}{.5\linewidth}
 
@@ -69,16 +54,6 @@ separate-uncertainty = true,group-minimum-digits=3}
 
 \restituegroupe{ensembles}
 
-\clearpage
-
-\begin{center}
-\hrule\vspace{2mm}
-\bf\Large Distance et valeur absolue
-\vspace{2mm}\hrule
-\end{center}
-
-\restituegroupe{valeur-absolue}
-
 }%fin commande \exemplaire
 }%fin commande \newcommand
 \begin{document}
@@ -93,13 +68,11 @@ separate-uncertainty = true,group-minimum-digits=3}
 \FPeval\VQc{clip(100-VQa*7.125)}
 \FPeval\VQd{clip((100-VQa*7.125)/10)}
 \FPeval\VQe{clip((100-VQa*7.125)*10)}
-\FPeval\VQf{clip((100-VQa)*7.125)}
-Indique la réponse la plus probable pour le calcul de $A = 100 - \VQa{} \times 7,125$.
+Sans utiliser de calculette, indique la réponse la plus probable pour le calcul de $A = 100 - \VQa{} \times 7,125$.
 \begin{reponseshoriz}
 \bonne{A = \VQc}
-\mauvaise{A = \VQd}
-\mauvaise{A = \VQe}
-\mauvaise{A = \VQf}
+\mauvaise{\VQd}
+\mauvaise{\VQe}
 \end{reponseshoriz}
 \end{question}
 }
@@ -135,7 +108,7 @@ L'une des expressions suivantes est égale à l'expression 2a - b. Laquelle~?
 }
 
 
-\element{calculs-off}{
+\element{calculs}{
 \begin{question}{rais}
 Une seule des affirmations suivantes est exacte. Laquelle~?
 \begin{reponses}
@@ -146,7 +119,7 @@ Une seule des affirmations suivantes est exacte. Laquelle~?
 \end{question}
 }
 
-\element{calculs-off}{
+\element{calculs}{
 \begin{question}{diffcarres}
 Quelle est l'expression qui n'est pas une différence de deux carrés~?
 \begin{reponseshoriz}
@@ -203,9 +176,9 @@ Si $I = [\VQa{};+\infty[$ et $J = ]-\infty;\VQb{}]$
 \end{questionmult}
 }
 
-\element{ensembles-off}{
+\element{ensembles}{
 \begin{question}{decimal}
-Un élève effectue la division de 17 par 125 avec sa calculatrice. Comment doit-on écrire le résultat obtenu ?
+\prenom effectue la division de 17 par 125 avec sa calculette. Comment doit-il inscrire le résultat obtenu ?
 \begin{reponseshoriz}
 \bonne{$\dfrac{17}{125}=0,136$}
 \mauvaise{$\dfrac{17}{125}=0,136...$}
@@ -234,43 +207,6 @@ $\VQa{}<x\leq\VQb{}$ est équivalent à:
 \end{reponseshoriz}
 \end{question}
 }
-\setgroupmode{calculs}{cyclic}
-\setgroupmode{ensembles}{cyclic}
-
-\element{valeur-absolue}{
-\begin{question}{mise-equation-va}
-\FPeval{\a}{trunc(1+random*9,0)}
-\FPeval{\r}{trunc(1+random*9,0)}
-Soit le point $A(\a)$ sur une droite graduée. On cherche à trouver les positions d'un point $M_{1}$ de façon à ce que la distance entre A et M soit inférieure à $\r$.
-Ecrire l'équation traduisant la situation.
-        \AMCOpen{lines=1}{\wrongchoice[F]{f}\scoring{0}\wrongchoice[P]{p}\scoring{1}\correctchoice[J]{j}\scoring{2}}
-        \end{question}
-}
-
-\element{valeur-absolue}{
-\begin{question}{resolution-equation-va}
-Résoudre l'équation de la question précédente graphiquement et/ou algébriquement.
-        \AMCOpen{lines=3}{\wrongchoice[F]{f}\scoring{0}\wrongchoice[P]{p}\scoring{1}\correctchoice[J]{j}\scoring{2}}
-        \end{question}
-}
-
-\element{valeur-absolue}{
-\begin{question}{deux-va}
-\FPeval{\b}{trunc(10+random*9,0)}
-Soit le point $B(\b)$. $M_{2}$ est équidistant aux points A et B. On cherche l'abscisse du point $M_{2}$ ?
-Ecrire l'équation traduisant la situation à l'aide de valeurs absolue.
-        \AMCOpen{lines=1}{\wrongchoice[F]{f}\scoring{0}\wrongchoice[P]{p}\scoring{1}\correctchoice[J]{j}\scoring{2}}
-        \end{question}
-}
-
-\element{valeur-absolue}{
-\begin{question}{resolution-deux-va}
-Résoudre l'équation de la question précédente graphiquement et/ou algébriquement.
-        \AMCOpen{lines=4}{\wrongchoice[F]{f}\scoring{0}\wrongchoice[P]{p}\scoring{1}\correctchoice[J]{j}\scoring{2}}
-        \end{question}
-}
-
-\setgroupmode{valeur-absolue}{fixed}
 
 
 %%génération des sujets

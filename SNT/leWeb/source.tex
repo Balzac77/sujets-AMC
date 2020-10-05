@@ -1,0 +1,389 @@
+%%AMC:preprocess_command=
+%%AMC:jobspecific=1
+%%AMC:latex_engine=pdflatex --shell-escape
+
+% Compilation Texmaker : Utilisateur/Commandes utilisateur
+%--------------------------
+% Shell Python :
+% pdflatex --shell-escape -synctex=1 -interaction=nonstopmode %.tex|
+% python /usr/share/texlive/texmf-dist/scripts/pythontex/pythontex.py %.tex|
+% pdflatex --shell-escape -synctex=1 -interaction=nonstopmode %.tex|
+%------------------------
+% Copier-coller la ligne ci-dessous dans Utilisateur/Commandes Utilisateur/Editer Commandes Utilisateur
+%------------------------
+% pdflatex --shell-escape -synctex=1 -interaction=nonstopmode %.tex | python /usr/share/texlive/texmf-dist/scripts/pythontex/pythontex.py %.tex | pdflatex --shell-escape -synctex=1 -interaction=nonstopmode %.tex
+%--------------------------
+
+\documentclass[a4paper]{article}
+\RequirePackage{etex}
+\usepackage[utf8]{inputenc}    
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\selectlanguage{french}
+\usepackage[francais,bloc,completemulti,ensemble]{automultiplechoice}    
+\usepackage{fancyhdr,amssymb,amsmath}
+\usepackage{multicol}
+
+%\usepackage[onelanguage,french,linesnumbered,ruled]{algorithm2e}
+
+% ---------- Utilisation de codes Python -----
+\usepackage{csvsimple}
+
+%----------------------------------------------
+\def\barO{b=1.25,m=O}
+\def\barQ{b=1,m=-0.1}
+\def\barS{b=1,m=0}
+\def\barP{b=1.5,m=-0.1}
+\def\barR{b=2,m=-0.1}
+
+
+\def\AMCformQuestion#1{{\sc Question #1 :}}
+
+
+\element{leweb}{
+    \begin{question}{inventeur}\bareme{formula=NBC*2-(0.1*NMC),p=0,MAX=2}
+Qui a inventé le Web ?
+\begin{multicols}{3}\AMCBoxedAnswers
+			\begin{reponses}
+				\bonne{Tim Berners-Lee}
+				\mauvaise{Bill Gates}
+				\mauvaise{Elon Musk}
+				\mauvaise{Bernard Henri-Levy}
+				\mauvaise{Steve Jobs}
+				\mauvaise{John Paul Jones}
+			\end{reponses}
+\end{multicols}
+\end{question}
+}
+
+\element{leweb}{
+    \begin{question}{annee}\bareme{formula=NBC*2-(0.1*NMC),p=0,MAX=2}
+En quelle année a été inventé le Web ?
+\begin{multicols}{3}\AMCBoxedAnswers
+			\begin{reponses}
+				\bonne{1989}
+				\mauvaise{1959}
+				\mauvaise{1965}
+				\mauvaise{1969}
+				\mauvaise{1979}
+				\mauvaise{1999}
+			\end{reponses}
+\end{multicols}
+\end{question}
+}
+
+\setgroupmode{leweb}{cyclic}
+
+\element{html-http}{
+    \begin{question}{http}\bareme{formula=NBC*2-(0.1*NMC),p=0,MAX=2}
+Quel protocole est utilisé lorsque l'on navigue sur le web ?
+\begin{multicols}{3}\AMCBoxedAnswers
+			\begin{reponses}
+				\bonne{HTTP}
+				\mauvaise{HTML}
+				\mauvaise{CSS}
+				\mauvaise{WWW}
+				\mauvaise{URL}
+				\mauvaise{Internet}
+			\end{reponses}
+\end{multicols}
+\end{question}
+}
+
+\element{html-http}{
+    \begin{question}{html}\bareme{formula=NBC*2-(0.1*NMC),p=0,MAX=2}
+Quel language est utilisé pour créer une page web ?
+\begin{multicols}{3}\AMCBoxedAnswers
+			\begin{reponses}
+				\mauvaise{HTTP}
+				\bonne{HTML}
+				\mauvaise{NotePad++}
+				\mauvaise{WWW}
+				\mauvaise{URL}
+				\mauvaise{Python}
+			\end{reponses}
+\end{multicols}
+\end{question}
+}
+
+
+\element{html-http}{
+    \begin{question}{css}\bareme{formula=NBC*2-(0.1*NMC),p=0,MAX=2}
+Quel language est utilisé pour définir la couleur de fond d'une page web ?
+\begin{multicols}{3}\AMCBoxedAnswers
+			\begin{reponses}
+				\mauvaise{HTTP}
+				\mauvaise{HTML}
+				\bonne{CSS}
+				\mauvaise{WWW}
+				\mauvaise{URL}
+				\mauvaise{Firefox}
+			\end{reponses}
+\end{multicols}
+\end{question}
+}
+
+
+\element{url}{
+\begin{question}{url-sousdomaine}\bareme{formula=NBC*2-(0.1*NMC),p=0,MAX=2}
+Quel est le sous domaine de https://ent.iledefrance.fr/timeline/timeline ?
+\begin{multicols}{3}\AMCBoxedAnswers
+			\begin{reponses}
+				\bonne{ent}
+				\mauvaise{ent.iledefrance}
+				\mauvaise{iledefrance}
+				\mauvaise{iledefrance.fr}
+				\mauvaise{fr}
+				\mauvaise{timeline/timeline}
+			\end{reponses}
+\end{multicols}
+\end{question}
+}
+
+\element{url}{
+    \begin{question}{url-domaine}\bareme{formula=NBC*2-(0.1*NMC),p=0,MAX=2}
+Quel est le nom de domaine de https://ent.iledefrance.fr/timeline/timeline ?
+\begin{multicols}{3}\AMCBoxedAnswers
+			\begin{reponses}
+				\mauvaise{ent}
+				\mauvaise{ent.iledefrance}
+				\mauvaise{iledefrance}
+				\bonne{iledefrance.fr}
+				\mauvaise{fr}
+				\mauvaise{timeline/timeline}
+			\end{reponses}
+\end{multicols}
+\end{question}
+
+}
+
+\setgroupmode{url}{cyclic}
+
+
+\element{balises}{
+
+\begin{question}{balise-ol}\bareme{formula=NBC*2-(0.1*NMC),p=0,MAX=2}
+Quelle balise définie une liste à puce numérotée ?
+\begin{multicols}{3}\AMCBoxedAnswers
+			\begin{reponses}
+				\bonne{<ol>}
+				\mauvaise{<ul>}
+				\mauvaise{<il>}
+				\mauvaise{<li>}
+				\mauvaise{<lo>}
+				\mauvaise{<lu>}
+			\end{reponses}
+\end{multicols}
+\end{question}
+}
+
+\element{balises}{
+
+\begin{question}{balise-ul}\bareme{formula=NBC*2-(0.1*NMC),p=0,MAX=2}
+Quelle balise définie une liste à puce non ordonée ?
+\begin{multicols}{3}\AMCBoxedAnswers
+			\begin{reponses}
+				\bonne{<ul>}
+				\mauvaise{<ol>}
+				\mauvaise{<il>}
+				\mauvaise{<li>}
+				\mauvaise{<lo>}
+				\mauvaise{<lu>}
+			\end{reponses}
+\end{multicols}
+\end{question}
+}
+
+\element{balises}{
+\begin{question}{balise-titre}\bareme{formula=NBC*2-(0.1*NMC),p=0,MAX=2}
+Quelle balise définie un titre ?
+\begin{multicols}{2}\AMCBoxedAnswers
+			\begin{reponses}
+				\bonne{<h1>}
+				\mauvaise{<title>}
+				\mauvaise{<head>}
+				\mauvaise{<body>}
+				\mauvaise{<html>}
+				\mauvaise{<titre>}
+			\end{reponses}
+\end{multicols}
+\end{question}
+}
+
+\element{css}{
+\begin{question}{css-link}\bareme{formula=NBC*2-(0.1*NMC),p=0,MAX=2}
+Quel code doit être ajouté au code HTML pour pouvoir y ajouter un fichier CSS nommé style.css ?
+\AMCBoxedAnswers
+			\begin{reponses}
+				\mauvaise{<insert href="style.css"/>}
+				\mauvaise{<insert href="stylesheet"/>}
+				\bonne{<link rel="stylesheet" href="style.css"/>}
+				\mauvaise{<link rel="stylesheet" href="stylesheet"/>}
+				\mauvaise{<html>}
+			\end{reponses}
+\end{question}
+}
+
+\element{css}{
+\begin{question}{css-taille}\bareme{formula=NBC*2-(0.1*NMC),p=0,MAX=2}
+Laquelle de ces propriétés CSS permet-elle de modifier la taille des lettres ?
+\begin{multicols}{2}\AMCBoxedAnswers
+			\begin{reponses}
+				\mauvaise{font-family}
+				\mauvaise{font-style}
+				\bonne{font-size}
+				\mauvaise{font-weight>}
+			\end{reponses}
+\end{multicols}
+\end{question}
+}
+
+
+
+\element{head-body}{
+    \begin{question}{head-body}
+    Expliquez la différence entre la balise head et la balise body ?
+    \AMCOpen{lines=3}{\wrongchoice[F]{f}\scoring{0}\wrongchoice[P]{p}\scoring{1}\correctchoice[J]{j}\scoring{2}}
+    \end{question}
+}
+
+\element{internet-web}{
+    \begin{question}{internet-web}
+    Expliquez la différence entre internet et le web ?
+    \AMCOpen{lines=3}{\wrongchoice[F]{f}\scoring{0}\wrongchoice[P]{p}\scoring{1}\correctchoice[J]{j}\scoring{2}}
+    \end{question}
+}
+
+
+
+
+\element{liens}{
+\begin{question}{lien-ext}\bareme{formula=NBC*2-(0.1*NMC),p=0,MAX=2}
+Quelle balise permet d'inserer un lien externe ?
+\AMCBoxedAnswers
+			\begin{reponses}
+				\bonne{<a href="https://ent.iledefrance.fr/timeline" target="\_blank">Lien externe</a>}
+				\mauvaise{<a href="tp\_html1.html">Lien externe</a>}
+				\mauvaise{<a href="externe">Lien externe</a>}
+				\mauvaise{<href="https://un.autresite.com">Lien externe</href>}
+				\mauvaise{<a href="unautre.encore.com"> </a>}
+			\end{reponses}
+\end{question}
+
+}
+
+\element{liens}{
+\begin{question}{lien-interne}\bareme{formula=NBC*2-(0.1*NMC),p=0,MAX=2}
+Quelle balise permet d'inserer un lien interne vers une autre page?
+\AMCBoxedAnswers
+			\begin{reponses}
+				\mauvaise{<a href="https://ent.iledefrance.fr/timeline" target="\_blank">Lien interne</a>}
+				\bonne{<a href="tp\_html1.html">Lien interne</a>}
+				\mauvaise{<a href="interne">Lien interne</a>}
+				\mauvaise{<href="autrepage.html">Lien interne</href>}
+				\mauvaise{<a href="unautre.encore.com"> </a>}
+			\end{reponses}
+\end{question}
+
+}
+
+\element{liens}{
+\begin{question}{lien-internediez}\bareme{formula=NBC*2-(0.1*NMC),p=0,MAX=2}
+Quelle balise permet d'inserer un lien interne vers un autre endroit de la page?
+\AMCBoxedAnswers
+			\begin{reponses}
+				\mauvaise{<a href="https://ent.iledefrance.fr/timeline" target="\_blank"> Lien interne </a>}
+				\mauvaise{<a href="tp\_html1.html">Lien interne</a>}
+				\bonne{<a href="\#interne">Lien interne</a>}
+				\mauvaise{<href="autrepage.html">Lien interne</href>}
+				\mauvaise{<a href="unautre.encore.com"> </a>}
+			\end{reponses}
+\end{question}
+
+}
+
+\setgroupmode{liens}{cyclic}
+\setgroupmode{internet-web}{cyclic}
+\setgroupmode{head-body}{cyclic}
+\setgroupmode{html-http}{cyclic}
+\setgroupmode{balises}{cyclic}
+%\setgroupmode{css}{cyclic}
+
+
+
+%--------
+% DOCUMENT
+%--------
+\begin{document}
+
+\newcommand{\sujet}{
+\exemplaire{1}{
+
+
+\AMCassociation{\id}
+%%% debut de l'en-tête des copies :
+
+\vspace{2ex}
+
+%%% fin de l'en-tête
+
+%\melangegroupe{balise}
+
+\cleargroup{tout}
+\copygroup[2]{leweb}{tout}
+%\restituegroupe[2]{leweb}
+
+\copygroup[2]{html-http}{tout}
+%\restituegroupe[1]{html-http}
+
+\copygroup[1]{url}{tout}
+%\restituegroupe[1]{url}
+
+\copygroup[1]{liens}{tout}
+\copygroup[1]{css}{tout}
+%\restituegroupe[1]{liens}
+
+\copygroup[1]{balises}{tout}
+%\restituegroupe[2]{balises}
+
+\copygroup{head-body}{tout}
+
+\copygroup{internet-web}{tout}
+
+\melangegroupe{tout}
+\restituegroupe{tout}
+
+
+
+%\AMCcleardoublepage
+\clearpage
+\AMCdebutFormulaire
+
+%%% début de l’en-tête de la feuille de réponses
+\begin{minipage}{.4\linewidth}
+\centering\large\bf Evaluation SNT 211\\Mardi 13.10.2020 \end{minipage}
+\champnom{\fbox{    
+                \begin{minipage}{.5\linewidth}
+                  \begin{center} \nom{} \prenom{} \end{center}
+                \end{minipage}
+         }}
+
+\begin{center}
+\bf Les réponses aux questions sont à donner exclusivement sur cette feuille : 
+les réponses données de l'autre côté de la feuille ne seront pas prises en compte.
+\\
+Les questions ont une unique bonne réponse. L'indiquer sur cette feuille en noircissant la case correspondante au stylo à bille noir.\\
+Les réponses fausses retirent un quart des points. Une absence de réponse n'enlève pas de points.
+Pour rectifier une erreur, utilisez un correcteur "blanc" pour faire disparaître complètement la case noircie par erreur.\\
+La calculatrice doit être mise en mode examen.
+\
+\end{center}
+\AMCboxStyle{shape=square,size=4.25ex,down=.4ex,rule=.5pt,outsidesep=.1em,color=black}
+%%% fin de l’en-tête de la feuille de réponses
+\formulaire
+
+}
+}
+\csvreader[head to column names]{../211.csv}{}{\sujet}
+
+\end{document}
