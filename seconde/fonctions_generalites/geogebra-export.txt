@@ -1,0 +1,28 @@
+\documentclass[10pt]{article}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\pagestyle{empty}
+\begin{document}
+\definecolor{qqwuqq}{rgb}{0,0.5,0}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+\begin{axis}[
+x=1cm,y=1cm,
+axis lines=middle,
+ymajorgrids=true,
+xmajorgrids=true,
+xmin=-5,
+xmax=6,
+ymin=-2,
+ymax=3,
+xtick={-5,-4.5,...,6.5},
+ytick={-2,-1.5,...,3},]
+\clip(-5,-2) rectangle (6,3);
+\draw[line width=2pt,color=qqwuqq,smooth,samples=100,domain=-5:6] plot(\x,{0-2*(\x)^(2)+(\x)+2});
+\begin{scriptsize}
+\draw[color=qqwuqq] (-1,-2) node {$f$};
+\end{scriptsize}
+\end{axis}
+\end{tikzpicture}
+\end{document}
